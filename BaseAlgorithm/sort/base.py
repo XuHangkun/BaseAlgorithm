@@ -17,8 +17,7 @@ class BaseSort:
     def __init__(self):
         pass
 
-    @staticmethod
-    def sort(cmp_iter_able,reverse = False):
+    def sort(self,cmp_iter_able,reverse = False):
         pass
 
     def smaller(self,cmp_i,cmp_j):
@@ -49,6 +48,29 @@ class BaseSort:
             return self.bigger(cmp_i,cmp_j)
         else:
             return self.smaller(cmp_i,cmp_j)    
+    
+    def exch(self,cmp_iter_able,i,j):
+        """exchange i'th item and j'th item in cmp_iter_able
+        """
+        tmp = cmp_iter_able[i]
+        cmp_iter_able[i] = cmp_iter_able[j]
+        cmp_iter_able[j] = tmp
+
+    def show(self,cmp_iter_able):
+        """print cmp_iter_able
+        """
+        try:
+            length = len(cmp_iter_able)
+        except (TypeError,AttributeError):
+            print("cmp_iter_able has no len()")
+            raise
+        except:
+            print("Unexcept error")
+            raise
+            
+        for i in range(0,length):
+            print(cmp_iter_able[i])
+        
     
     def isSorted(self,cmp_iter_able,reverse = False):
         """judge id cmp_iter_able is sorted
