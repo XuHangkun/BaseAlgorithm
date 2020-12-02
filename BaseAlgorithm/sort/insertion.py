@@ -3,7 +3,7 @@
     quick sort class
     ~~~~~~~~~~~~~~
 
-    A class based on quick sort 
+    A class based on inserting-sort algorithm
 
     :copyright: (c) 2020 by Xu Hangkun.
     :license: LICENSE, see LICENSE for more details.
@@ -12,23 +12,23 @@
 
 from base import BaseSort
 
-class Quick(BaseSort):
-    """Class based on quick sort
+class Insertion(BaseSort):
+    """Class based on inserting-sort algorithm
     """
 
     def sort(self,cmp_iter_able,reverse = False):
-        """sort cmp_iter_able based on quick sort
+        """sort cmp_iter_able based on inserting-sort algorithm
 
         Args:
             reverse: normal order(False), inverse order(True)
         """
         length = len(cmp_iter_able)
-        for index_i in range(0,length-1):
-            des_index = index_i
-            for index_j in range(index_i+1,length):
-                if not self.compare(cmp_iter_able[index_i],cmp_iter_able[index_j],reverse=reverse):
-                    des_index = index_j
-            self.exch(cmp_iter_able,index_i,des_index)
+        for index_i in range(1,length):
+            index_j = index_i
+            while index_j>0:
+                if self.compare(cmp_iter_able[index_j],cmp_iter_able[index_j-1],reverse=reverse):
+                    self.exch(cmp_iter_able,index_j,index_j-1)
+                index_j-=1
 
 if __name__ == "__main__":
     # a simple test
@@ -38,10 +38,10 @@ if __name__ == "__main__":
         rand_list.append(random.randint(0,100))
 
     print("Normal order")
-    quick = Quick()
-    quick.sort(rand_list)
-    quick.show(rand_list)
+    insert = Insertion()
+    insert.sort(rand_list)
+    insert.show(rand_list)
     
     print("Inverse order")
-    quick.sort(rand_list,reverse=True)
-    quick.show(rand_list)
+    insert.sort(rand_list,reverse=True)
+    insert.show(rand_list)
