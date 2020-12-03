@@ -73,7 +73,9 @@ if __name__ == "__main__":
     merge = Merge()
     merge.sort(rand_list)
     merge.show(rand_list)
+    print(merge.isSorted(rand_list))
     
     print("Inverse order")
     merge.sort(rand_list,reverse=True)
     merge.show(rand_list)
+    print(merge.isSorted(rand_list,reverse=True))

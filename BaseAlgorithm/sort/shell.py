@@ -47,7 +47,9 @@ if __name__ == "__main__":
     shell = Shell()
     shell.sort(rand_list)
     shell.show(rand_list)
+    print(shell.isSorted(rand_list))
     
     print("Inverse order")
     shell.sort(rand_list,reverse=True)
     shell.show(rand_list)
+    print(shell.isSorted(rand_list,reverse=True))

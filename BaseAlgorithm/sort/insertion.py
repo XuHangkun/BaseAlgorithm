@@ -41,7 +41,9 @@ if __name__ == "__main__":
     insert = Insertion()
     insert.sort(rand_list)
     insert.show(rand_list)
+    print(insert.isSorted(rand_list))
     
     print("Inverse order")
     insert.sort(rand_list,reverse=True)
     insert.show(rand_list)
+    print(insert.isSorted(rand_list,reverse=True))
