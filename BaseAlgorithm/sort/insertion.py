@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    quick sort class
+    insertion sort class
     ~~~~~~~~~~~~~~
 
     A class based on inserting-sort algorithm
