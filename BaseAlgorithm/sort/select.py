@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    quick sort class
+    select sort class
     ~~~~~~~~~~~~~~
 
-    A class based on quick sort 
+    A class based on select sort 
 
     :copyright: (c) 2020 by Xu Hangkun.
     :license: LICENSE, see LICENSE for more details.
@@ -12,12 +12,12 @@
 
 from base import BaseSort
 
-class Quick(BaseSort):
-    """Class based on quick sort
+class Select(BaseSort):
+    """Class based on Select sort
     """
 
     def sort(self,cmp_iter_able,reverse = False):
-        """sort cmp_iter_able based on quick sort
+        """sort cmp_iter_able based on Select sort
 
         Args:
             reverse: normal order(False), inverse order(True)
@@ -26,7 +26,7 @@ class Quick(BaseSort):
         for index_i in range(0,length-1):
             des_index = index_i
             for index_j in range(index_i+1,length):
-                if not self.compare(cmp_iter_able[index_i],cmp_iter_able[index_j],reverse=reverse):
+                if not self.compare(cmp_iter_able[des_index],cmp_iter_able[index_j],reverse=reverse):
                     des_index = index_j
             self.exch(cmp_iter_able,index_i,des_index)
 
@@ -38,10 +38,12 @@ if __name__ == "__main__":
         rand_list.append(random.randint(0,100))
 
     print("Normal order")
-    quick = Quick()
-    quick.sort(rand_list)
-    quick.show(rand_list)
+    select = Select()
+    select.sort(rand_list)
+    print(select.isSorted(rand_list))
+    select.show(rand_list)
     
     print("Inverse order")
-    quick.sort(rand_list,reverse=True)
-    quick.show(rand_list)
+    select.sort(rand_list,reverse=True)
+    print(select.isSorted(rand_list,reverse=True))
+    select.show(rand_list)
