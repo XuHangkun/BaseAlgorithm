@@ -10,7 +10,7 @@
     :ref: [美]塞奇威克(Sedgewick, R.)，[美]韦恩(Wayne，K.).算法[M].北京:人民邮电出版社,2012.
 """
 
-from base import BaseSort
+from BaseAlgorithm.sort.base import BaseSort
 import random
 
 class Quick(BaseSort):

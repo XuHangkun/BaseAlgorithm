@@ -10,7 +10,7 @@
     :ref: [美]塞奇威克(Sedgewick, R.)，[美]韦恩(Wayne，K.).算法[M].北京:人民邮电出版社,2012.
 """
 
-from base import BaseSort
+from BaseAlgorithm.sort.base import BaseSort
 
 class Shell(BaseSort):
     """Class based on shell-sort algorithm
@@ -34,7 +34,7 @@ class Shell(BaseSort):
                     if self.compare(cmp_iter_able[j],cmp_iter_able[j-h],reverse = reverse):
                         self.exch(cmp_iter_able,j,j-h)
                     j -=h
-            h = h/3
+            h = int(h/3)
 
 if __name__ == "__main__":
     # a simple test
