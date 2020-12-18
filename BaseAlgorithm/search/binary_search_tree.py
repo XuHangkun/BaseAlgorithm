@@ -56,7 +56,22 @@ class BST:
             return self.__get(node.left,key)
         else:
             return node.value    
-        
+    
+    def contain(self,key):
+        """judge if the tree contain the key
+        """
+        return self.__contain(self.root,key)
+    
+    def __contain(self,node,key):
+        if not node:
+            return False
+        if node.key < key:
+            return self.__get(node.right,key)
+        elif node.key > key:
+            return self.__get(node.left,key)
+        elif node.key == key:
+            return True
+
     def put(self,key,value):
         """put a node into the tree
         """
@@ -87,6 +102,22 @@ class BST:
         print((node.key,node.value))
         if node.right:
             self.__show(node.right)
+    
+    def keys(self):
+        """return the keys in order
+        """
+        keys = []
+        self.__keys(keys,self.root)
+        return keys
+    
+    def __keys(self,keys,node):
+        if not node:
+            return
+        if node.left:
+            self.__keys(keys,node.left)
+        keys.append(node.key)
+        if node.right:
+            self.__keys(keys,node.right)
     
     def min(self):
         """min node
@@ -265,4 +296,5 @@ if __name__ == "__main__":
     bst.delete(7)
     print('Rank 6',bst.rank(6))
     print('Rank 8',bst.rank(8))
-    #bst.show()
+    bst.show()
+    print(bst.keys())
