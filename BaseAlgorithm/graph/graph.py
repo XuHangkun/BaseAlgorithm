@@ -11,6 +11,7 @@
 """
 
 from BaseAlgorithm.search.binary_search_tree import BST
+import queue
 
 class Graph:
     """graph class
@@ -156,13 +157,151 @@ class SymbolGraph:
                 key_adj_indexs = self.__gr.adj(self.__st.get(key))
                 for adj in key_adj_indexs:
                     print("\t%s"%self.__keys[adj])
+
+class DepthFirstPath:
+    """use depth first to search graph
+    """
+
+    def __init__(self,gr:Graph,start:int):
+        """
+        """
+        self.__marked = []
+        self.__edgeTo = []
+        self.__start = start
+        for index in range(gr.vertex_num()):
+            self.__marked.append(False)
+            self.__edgeTo.append(None)
+        self.__dfs(gr,start)
+
+    def __dfs(self,gr:Graph,v:int):
+        self.__marked[v] = True
+        for vertex in gr.adj(v):
+            if not self.__marked[vertex]:
+                self.__edgeTo[vertex] = v
+                self.__dfs(gr,vertex)
+    
+    def hasPathTo(self,vertex:int):
+        """if vertex has path to start point
+        """
+        return self.__marked[vertex]
+
+    def pathTo(self,vertex:int):
+        """return the path from the vertex to start point
+        """
+        if not self.hasPathTo(vertex):
+            return None
         
+        path = []
+        x = vertex
+        while x != self.__start:
+            path.insert(0,x)
+            x = self.__edgeTo[x]
+        
+        path.insert(0,self.__start)
+        return path
+
+class BreadthFirstPaths:
+    """use breadth first method to find path
+    """
+    def __init__(self,gr:Graph,start:int):
+        """
+        """
+        self.__marked = []
+        self.__edgeTo = []
+        self.__start = start
+        for index in range(gr.vertex_num()):
+            self.__marked.append(False)
+            self.__edgeTo.append(None)
+        self.__bfs(gr,start)
+
+    def __bfs(self,gr:Graph,start:int):
+        que = queue.Queue(0)
+        self.__marked[start] = True
+        que.put(start)
+        while not que.empty():
+            v = que.get()
+            for w in gr.adj(v):
+                if not self.__marked[w]:
+                    self.__edgeTo[w] = v
+                    self.__marked[w] = True
+                    que.put(w)
+    
+    def hasPathTo(self,vertex:int):
+        """if vertex has path to start point
+        """
+        return self.__marked[vertex]
+
+    def pathTo(self,vertex:int):
+        """return the path from the vertex to start point
+        """
+        if not self.hasPathTo(vertex):
+            return None
+        
+        path = []
+        x = vertex
+        while x != self.__start:
+            path.insert(0,x)
+            x = self.__edgeTo[x]
+        
+        path.insert(0,self.__start)
+        return path
+
+class CC:
+    """find all connnected 
+    """
+    def __init__(self,gr:Graph):
+        self.__marked = []
+        self.__id = []
+        self.__count=0
+        for v in range(gr.vertex_num()):
+            self.__marked.append(False)
+            self.__id.append(None)
+        
+        for v in range(gr.vertex_num()):
+            if not self.__marked[v]:
+                self.__dfs(gr,v)
+                self.__count += 1
+            
+    def __dfs(self,gr:Graph,v:int):
+        self.__marked[v] = True
+        self.__id[v] = self.__count
+        for w in gr.adj(v):
+            if not self.__marked[w]:
+                self.__dfs(gr,w)
+    
+    def connected(self,v:int,w:int):
+        return self.__id[v] == self.__id[w]
+
+    def id(self,v:int):
+        return self.__id[v]
+    
+    def count(self):
+        return self.__count
 
 if __name__ == "__main__":
+
     gr = Graph()
     gr.load_graph("graph.txt")
     print("show graph")
     gr.show()
+    print("\n")
+
+    #test path search class
+    print("Test Path Search")
+    for i in range(1,6):
+        print("Path from 0 to %d"%i)
+        dep = DepthFirstPath(gr,0)
+        print("Depth First: ",dep.pathTo(i))
+        bre = BreadthFirstPaths(gr,0)
+        print("Breadth First: ",bre.pathTo(i))
+    print("\n")
+
+    #test cc
+    print("Test Class CC")
+    cc = CC(gr)
+    print("Connect sub graph: ",cc.count())
+    print("6 and 7",cc.connected(6,7))
+    print("6 and 1",cc.connected(6,1))
     print("\n")
 
     symbol_gr = SymbolGraph()
