@@ -316,6 +316,7 @@ class DirectedCircle:
                     x = self.__edgeTo[x]
                 self.__circle.insert(0,w)
                 self.__circle.insert(0,v)
+                return
         self.__onStack[v] = False
     
     def hasCircle(self):
