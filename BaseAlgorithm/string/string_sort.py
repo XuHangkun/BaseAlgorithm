@@ -91,3 +91,70 @@ class MSD:
                     cmp_iter_able[index_j] = cmp_iter_able[index_j-1]
                     cmp_iter_able[index_j-1] = tmp
                 index_j-=1
+
+class Quick3String:
+    """quick three strings sort
+    """
+    
+    def __init__(self,R=256,M=15):
+        self.R = R
+        self.M = M
+        self.aux = []
+
+    def charAt(self,str,d):
+        if d<len(str):
+            return ord(str[d])
+        else:
+            return -1
+    
+    def sort(self,str_list):
+        N = len(str_list)
+        for i in range(N):
+            self.aux.append("")
+        self.__sort(str_list,0,N-1,0)
+
+    def __sort(self,str_list,lo,hi,d):
+        if hi <= lo + self.M:
+            self.insertion(str_list,lo,hi)
+            return
+        lt = lo
+        gt = hi
+        v = self.charAt(str_list[lo],d)
+        i = lo + 1
+        while i <= gt:
+            t = self.charAt(str_list[i],d)
+            if t < v:
+                self.exch(str_list,lt,i)
+                lt += 1
+                i += 1
+            elif t > v:
+                self.exch(str_list,gt,i)
+                gt -= 1
+            else:
+                i += 1
+                
+        self.__sort(str_list,lo,lt-1,d)
+        if v >= 0:
+            self.__sort(str_list,lt,gt,d+1)
+        self.__sort(str_list,gt+1,hi,d)
+        
+    
+    def exch(self,cmp_iter_able,i,j):
+        """exchange i'th item and j'th item in cmp_iter_able
+        """
+        tmp = cmp_iter_able[i]
+        cmp_iter_able[i] = cmp_iter_able[j]
+        cmp_iter_able[j] = tmp
+    
+    def insertion(self,cmp_iter_able,lo,hi):
+        """sort cmp_iter_able based on inserting-sort algorithm
+        """
+
+        for index_i in range(lo,hi + 1):
+            index_j = index_i
+            while index_j>lo:
+                if cmp_iter_able[index_j] < cmp_iter_able[index_j-1]:
+                    tmp = cmp_iter_able[index_j]
+                    cmp_iter_able[index_j] = cmp_iter_able[index_j-1]
+                    cmp_iter_able[index_j-1] = tmp
+                index_j-=1
